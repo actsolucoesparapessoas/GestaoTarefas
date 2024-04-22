@@ -16,6 +16,10 @@ from datetime import datetime
 from Send2MaillMSK import Send2Mail, IsNiver
 
 global MAIL, SENHA, MAIL2BOARD
+
+# Page setting
+st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
+
 # storing the current time in the variable
 c = datetime.now()
 D = pd.to_datetime(c,format='%Y-%m-%d')
