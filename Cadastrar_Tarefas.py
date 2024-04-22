@@ -75,8 +75,8 @@ def main():
         st.page_link("https://ctrltarefas.streamlit.app/Cadastrar_Usuario", label="Cadastrar Usuários", icon="👨‍💼")
     with col2:
         st.page_link("https://ctrltarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
-    MAIL =  st.sidebar.text_input("e-mail:", "massaki.igarashi@gmail.com")
-    SENHA = st.sidebar.text_input("SENHA:", "84971")
+    MAIL =  st.sidebar.text_input("e-mail:")
+    SENHA = st.sidebar.text_input("SENHA:")
     LOGAR = st.sidebar.button(label = '✔️ LOGAR') 
     MAIL2BOARD = ""
     conn = sqlite3.connect('Usuario.db') 
