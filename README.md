@@ -1,2 +1,2 @@
-# CTRLtarefas
-[Acessar CTRL de Tarefas - CADASTRO](https://gestaotarefas.streamlit.app/)
+# Gestão de Tarefas
+[Acessar Web app Gestão de Tarefas - CADASTRO](https://gestaotarefas.streamlit.app/)
