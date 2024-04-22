@@ -9,6 +9,9 @@ import numpy as np
 import random  # necessário para utilizar o módulo random
 from Send2MaillMSK import Send2Mail
 
+# Page setting
+st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
+  
 vet = str(np.zeros(4))
 def exibir():
     conn = sqlite3.connect('Usuario.db')
