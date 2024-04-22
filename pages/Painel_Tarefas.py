@@ -31,7 +31,7 @@ import matplotlib.pyplot as plt
 #https://discuss.streamlit.io/t/how-to-draw-pie-chart-with-matplotlib-pyplot/13967/2
 
 # Page setting
-st.set_page_config(layout="wide", page_title="CTRL de TAREFAS")
+st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
   
 def DB_FiltraMES(db, MES):
     format = '%d/%m/%Y'
