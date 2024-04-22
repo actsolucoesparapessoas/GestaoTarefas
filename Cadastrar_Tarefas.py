@@ -29,7 +29,7 @@ current_timestamp = time.time()
 #image01 = Image.open('pixabay300x256.png')
 #image02 = Image.open('act_logo300x200.png')
 #st.sidebar.image(image01, width=300, caption='Envio automático de e-mail') 
-Titulo_Laterial = '<p style="font-weight: bolder; color:black; font-size: 32px;">Enviar Tarefas ao Quadro Trello</p>'
+Titulo_Laterial = '<p style="font-weight: bolder; color:black; font-size: 32px;">Enviar Tarefas ao Trello</p>'
 st.markdown(Titulo_Laterial, unsafe_allow_html=True)
 mystyle1 =   '''<style> p{text-align:center;}</style>'''
 st.markdown(mystyle1, unsafe_allow_html=True)
