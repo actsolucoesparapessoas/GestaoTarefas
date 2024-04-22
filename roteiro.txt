@@ -1,0 +1,18 @@
+Conta e-mail: maria.clara.c.igarashi@gmail.com
+
+Trello: https://trello.com/b/vvnfxyjF/2-a2024-col-integracao
+
+Google Form para preenchimento automatico: 
+https://docs.google.com/spreadsheets/d/19HCPCVZi5_GcAOHj7TSxh7fnIkIueUyselBQO7Fott8/edit?usp=sharing
+
+link Preenchimento: 
+https://docs.google.com/forms/d/e/1FAIpQLSf8vMlVulpPEPsoZDiXMV35qtiI0mjcxdyRjWQKNipc18F_AA/viewform?usp=pp_url&entry.2053247179=DISCIPLINA&entry.1049878361=TAREFA&entry.1784768064=DATA
+
+SUBSTITUIR
+viewformusp=pp_url&entry
+por
+formResponse?&submit=Submit?usp=pp_url&entry
+
+LINK PARA AUTOMATIZAÇÃO:
+https://docs.google.com/forms/d/e/1FAIpQLSf8vMlVulpPEPsoZDiXMV35qtiI0mjcxdyRjWQKNipc18F_AA/formResponse?&submit=Submit?usp=pp_url&entry
+.2053247179=DISCIPLINA&entry.1049878361=TAREFA&entry.1784768064=DATA
