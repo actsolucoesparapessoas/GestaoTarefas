@@ -159,8 +159,8 @@ def main():
     with col2:
         st.page_link("pages/Cadastrar_Usuario.py", label="Cadastrar Usuários", icon="👨‍💼")
 
-    USER =  st.sidebar.text_input("e-mail:", "massaki.igarashi@gmail.com")
-    SENHA = st.sidebar.text_input("SENHA:", "84971")
+    #USER =  st.sidebar.text_input("e-mail:", "massaki.igarashi@gmail.com")
+    #SENHA = st.sidebar.text_input("SENHA:", "84971")
     LOGAR = st.sidebar.button(label = '✔️ LOGAR') 
     MAIL2BOARD = ""
     conn = sqlite3.connect('Usuario.db') 
