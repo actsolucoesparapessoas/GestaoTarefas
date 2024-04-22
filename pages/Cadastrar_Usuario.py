@@ -47,11 +47,11 @@ n = len(rows)
 
 col0, col1, col2 = st.columns(3)       
 with col0:
-    st.page_link("https://ctrltarefas.streamlit.app", label="Cadastrar Tarefas", icon="📌") 
+    st.page_link("https://gestaodetarefas.streamlit.app/", label="Cadastrar Tarefas", icon="📌") 
 with col1:
-    st.page_link("https://ctrltarefas.streamlit.app/Cadastrar_Disciplinas", label="Cadastrar Disciplinas", icon="📃")
+    st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Disciplinas", label="Cadastrar Disciplinas", icon="📃")
 with col2:
-    st.page_link("https://ctrltarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
+    st.page_link("https://gestaodetarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
  
 tab1, tab2 = st.tabs(["Cadastrar", "EXIBIR"])
 with tab1:
