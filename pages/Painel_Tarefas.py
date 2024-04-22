@@ -153,11 +153,11 @@ def Mes2Num(NomeMes):
 def main():         
     col0, col1, col2 = st.columns(3)       
     with col0:
-        st.page_link("Cadastrar_Tarefas.py", label="Cadastrar Tarefas", icon="📌") 
+        st.page_link("https://gestaodetarefas.streamlit.app", label="Cadastrar Tarefas", icon="📌") 
     with col1:
-        st.page_link("pages/Cadastrar_Disciplinas.py", label="Cadastrar disciplinas", icon="📃")
+        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Disciplinas.py", label="Cadastrar disciplinas", icon="📃")
     with col2:
-        st.page_link("pages/Cadastrar_Usuario.py", label="Cadastrar Usuários", icon="👨‍💼")
+        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Usuario.py", label="Cadastrar Usuários", icon="👨‍💼")
 
     USER =  st.sidebar.text_input("e-mail:")
     SENHA = st.sidebar.text_input("SENHA:")
