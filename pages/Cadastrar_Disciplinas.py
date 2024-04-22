@@ -6,6 +6,9 @@ import pandas as pd
 import time
 import pandas as pd
 
+# Page setting
+st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
+
 def exibir():
     conn = sqlite3.connect('Disciplinas.db')
     cursor = conn.execute(""" SELECT * from DISCIPLINAS """)
