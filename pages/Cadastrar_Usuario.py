@@ -71,4 +71,4 @@ with tab1:
         st.divider()
         st.write("Bem vinda(o) ao TASK_TRELLO! Acesse seu e-mail cadastrado para obter a senha de acesso.")        
 with tab2: 
-    exibir()
+    #exibir()
