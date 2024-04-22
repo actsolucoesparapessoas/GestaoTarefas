@@ -74,11 +74,11 @@ def exibir_tarefa():
 def main():
     col0, col1, col2 = st.columns(3)       
     with col0:
-        st.page_link("https://ctrltarefas.streamlit.app/Cadastrar_Disciplinas", label="Cadastrar disciplinas", icon="📃")
+        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Disciplinas", label="Cadastrar disciplinas", icon="📃")
     with col1:
-        st.page_link("https://ctrltarefas.streamlit.app/Cadastrar_Usuario", label="Cadastrar Usuários", icon="👨‍💼")
+        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Usuario", label="Cadastrar Usuários", icon="👨‍💼")
     with col2:
-        st.page_link("https://ctrltarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
+        st.page_link("https://gestaodetarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
     MAIL =  st.sidebar.text_input("e-mail:")
     SENHA = st.sidebar.text_input("SENHA:")
     LOGAR = st.sidebar.button(label = '✔️ LOGAR') 
