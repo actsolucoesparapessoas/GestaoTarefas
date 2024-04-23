@@ -226,7 +226,7 @@ def main():
             st.markdown(mystyle1, unsafe_allow_html=True) 
         with colB:
             st.subheader("")
-            NPL_and_Text2Voice(DBTarefasDeHoje)
+            #NPL_and_Text2Voice(DBTarefasDeHoje)
         
         tab1, tab2 = st.tabs(["Gráficos", "Dados"])
         with tab1:   
