@@ -24,8 +24,14 @@ c = datetime.now()
 D = pd.to_datetime(c,format='%Y-%m-%d')
 c = datetime.now()
 H = pd.to_datetime(c,format='%Y-%m-%d')
-Hoje = str(H.day) + "/" + str(H.month) + "/" + str(H.year)
+if H.month <10:
+  Hoje = str(H.day) + "/0" + str(H.month) + "/" + str(H.year)
+  #MES = "0" + str(D.month)
+else:
+  Hoje = str(H.day) + "/" + str(H.month) + "/" + str(H.year)
+
 MES = D.month
+
 
 import matplotlib.pyplot as plt
 #https://discuss.streamlit.io/t/how-to-draw-pie-chart-with-matplotlib-pyplot/13967/2
@@ -33,7 +39,9 @@ import matplotlib.pyplot as plt
 # Page setting
 st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
   
-def DB_FiltraMES(db, MES):
+def DB_FiltraMES2(db, MES, DataHoje):
+    selecao2 = db['DATA_ENTREGA']==DataHoje
+    dbHJ = db[selecao2]
     format = '%d/%m/%Y'
     Dentrega = pd.to_datetime(db['DATA_ENTREGA'], format = format)
     pos = 0 #pos garante que seja inserido novo tempo na Tupla Tabela a partir da posição 0
@@ -62,14 +70,12 @@ def DB_FiltraMES(db, MES):
                 Tabela['USUARIO'].append(db['USUARIO'][i])
                 pos += 1
     df = (pd.DataFrame(Tabela)).dropna()
-    DBTarefasDeHoje = pd.DataFrame(TarefasDeHoje)
-    return df, DBTarefasDeHoje #Retornará o DataFrame df dos dados Filtrados e DBTarefasDeHoje referente as tarefas do dia de hoje
-    
+    return df, dbHJ
 def NPL_and_Text2Voice(dbTarefasDeHoje):    
-    dbTarefasDeHoje.columns = ['TAREFAS']   
+    dbTarefasDeHoje.columns = ['DISCIPLINA', 'TAREFA', 'DATA_ENTREGA', 'USUARIO'] 
     ListaTarefas = []
     for c in range(len(dbTarefasDeHoje)):
-        ListaTarefas.append(norm.normalise(str(dbTarefasDeHoje['TAREFAS'][c])))
+        ListaTarefas.append(norm.normalise(str(dbTarefasDeHoje['TAREFA'][c])))
     
     TextoSLTBox = 'Tarefas de Hoje (' + str(Hoje) + ")"
     coluna0, coluna1 = st.columns(2)      
@@ -153,12 +159,14 @@ def Mes2Num(NomeMes):
 def main():         
     col0, col1, col2 = st.columns(3)       
     with col0:
-        st.page_link("https://gestaodetarefas.streamlit.app", label="Cadastrar Tarefas", icon="📌") 
+        st.page_link("Cadastrar_Tarefas.py", label="Cadastrar Tarefas", icon="📌") 
     with col1:
-        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Disciplinas.py", label="Cadastrar disciplinas", icon="📃")
+        st.page_link("pages/Cadastrar_Disciplinas.py", label="Cadastrar disciplinas", icon="📃")
     with col2:
-        st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Usuario.py", label="Cadastrar Usuários", icon="👨‍💼")
+        st.page_link("pages/Cadastrar_Usuario.py", label="Cadastrar Usuários", icon="👨‍💼")
 
+    #USER =  st.sidebar.text_input("e-mail:", "massaki.igarashi@gmail.com")
+    #SENHA = st.sidebar.text_input("SENHA:", "84971")
     USER =  st.sidebar.text_input("e-mail:")
     SENHA = st.sidebar.text_input("SENHA:")
     LOGAR = st.sidebar.button(label = '✔️ LOGAR') 
@@ -178,7 +186,7 @@ def main():
     
     MesSelecionado = st.sidebar.selectbox('Selecione o mês a consultar',
                             ('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'),
-                            index=MES-1)    
+                            index=int(MES)-1)    
     NumMes = Mes2Num(MesSelecionado)
     #CSV
     urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSl_OAa9Xv81pQ9edrGF_RgoBwI78BEeuhGplXTFAX7CayaL9nwZOITQUxLQ2Ggl21HUeeTfqkU8xHw/pub?gid=283390209&single=true&output=csv"
@@ -190,8 +198,8 @@ def main():
     selecao = db['USUARIO']==USER
     db = db[selecao]              
     #dblimpo = db.dropna() #Limpa dados vazios
-    TimeStamp = db.index    
-    df, DBTarefasDeHoje = DB_FiltraMES(db, NumMes)
+    TimeStamp = db.index  
+    df, DBTarefasDeHoje = DB_FiltraMES2(db, MES, Hoje)
     #df é do DataFrame FILTRADO
         
     if df['DISCIPLINA'][0] != " ":
@@ -226,8 +234,8 @@ def main():
             st.markdown(mystyle1, unsafe_allow_html=True) 
         with colB:
             st.subheader("")
-            #NPL_and_Text2Voice(DBTarefasDeHoje)
-        
+            NPL_and_Text2Voice(DBTarefasDeHoje)
+            
         tab1, tab2 = st.tabs(["Gráficos", "Dados"])
         with tab1:   
             col_1, col_2, col_3 = st.columns(3) 
