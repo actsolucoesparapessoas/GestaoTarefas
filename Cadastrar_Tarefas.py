@@ -22,6 +22,13 @@ st.set_page_config(layout="wide", page_title="Gestão de TAREFAS")
 
 # storing the current time in the variable
 c = datetime.now()
+H = pd.to_datetime(c,format='%Y-%m-%d')
+if H.month <10:
+  Hoje = str(H.day) + "/0" + str(H.month) + "/" + str(H.year)
+  #MES = "0" + str(D.month)
+else:
+  Hoje = str(H.day) + "/" + str(H.month) + "/" + str(H.year)
+
 D = pd.to_datetime(c,format='%Y-%m-%d')
 millis = str(round(time.time() * 1000))
 current_timestamp = time.time()
@@ -42,15 +49,15 @@ DB = cc.fetchall()
 clean_db = pd.DataFrame(DB, columns=["ID","DISCIPLINA"])
 #st.dataframe(clean_db)  
 
-def Cadastrar_Tarefa(ID, USER, DISC, DataEntrega, Tarefa):
+def Cadastrar_Tarefa(ID, USER, DISC, DATA_ENTREGA, TAREFA):
     connT = sqlite3.connect('Tarefas.db')
     cursorT = connT.cursor()
     cursorT.execute('''CREATE TABLE IF NOT EXISTS Tarefas(ID INT PRIMARY KEY NOT NULL,
                                                         USUARIO    TEXT NOT NULL,
                                                         DISCIPLINA TEXT NOT NULL,
-                                                        D_ENTREGA  TEXT NOT NULL,
+                                                        DATA_ENTREGA  TEXT NOT NULL,
                                                         TAREFA     TEXT NOT NULL);''')
-    connT.execute("""INSERT INTO Tarefas (ID,USUARIO,DISCIPLINA,D_ENTREGA,TAREFA) VALUES(?,?,?,?,?)""", (ID, USER, DISC, DataEntrega, Tarefa))
+    connT.execute("""INSERT INTO Tarefas (ID,USUARIO,DISCIPLINA,DATA_ENTREGA,TAREFA) VALUES(?,?,?,?,?)""", (ID, USER, DISC, DATA_ENTREGA, TAREFA))
     connT.commit()
     st.write("Dados salvos com sucesso!")
     connT.close()
@@ -67,7 +74,7 @@ def exibir_tarefa():
        st.write("Tarefa: ", row[4])
     if len(rows) != 0:
         db = pd.DataFrame(rows)    
-        db.columns = ['ID' , 'USUÁRIO' , 'DISCIPLINA', 'Data Entrega' , 'TAREFA']
+        #db.columns = ['ID' , 'USUÁRIO' , 'DISCIPLINA', 'DATA_ENTREGA , 'TAREFA' ]
         st.dataframe(db)
     conn.close()
 
@@ -79,15 +86,14 @@ def main():
         st.page_link("https://gestaodetarefas.streamlit.app/Cadastrar_Usuario", label="Cadastrar Usuários", icon="👨‍💼")
     with col2:
         st.page_link("https://gestaodetarefas.streamlit.app/Painel_Tarefas", label="Painel de Tarefas", icon="📊") 
-    MAIL =  st.sidebar.text_input("e-mail:")
-    SENHA = st.sidebar.text_input("SENHA:")
+    USER =  st.sidebar.text_input("e-mail:", "massaki.igarashi@gmail.com")
+    SENHA = st.sidebar.text_input("SENHA:", "84971")
     LOGAR = st.sidebar.button(label = '✔️ LOGAR') 
     MAIL2BOARD = ""
     conn = sqlite3.connect('Usuario.db') 
     cc = conn.cursor()
-    cc.execute('SELECT * from USUARIO where MAIL=? and SENHA=?',(MAIL, SENHA))
-	#ou
-    #cursor = conn.execute("SELECT * from USUARIO where MAIL=? and SENHA=?", [MAIL, SENHA])
+    cc.execute('SELECT * from USUARIO where MAIL=? and SENHA=?',(USER, SENHA))
+
     cursor = cc.fetchall()
     for row in cursor:
         #IDuser = row[0]           
@@ -101,7 +107,7 @@ def main():
     #                        ("Arte", "Ciências", "Geografia", "Ling. Inglesa", "Matemática", "Matemática(Maker)", "Português", "Português/Ativs. Suplementares"),
     #                        #placeholder="Selecione a Disciplina a qual se refere a tafrefa!"
     #                        )
-    DataEntrega = st.text_input("Data de Entrega: ", str(D.day) + "/" + str(D.month) + "/" + str(D.year))
+    DataEntrega = st.text_input("Data de Entrega: ", Hoje)
     MSG = " "
     m = st.text_area("Digite a tarefa aqui: ", "\n ")
     if m is not None:
@@ -112,14 +118,14 @@ def main():
     #TO = st.text_input("seu e-mail cadastrado e-mail: ", "prof.massaki@gmail.com")
     if st.button(label = '✔️ ENVIAR'):                           
         ASSUNTO = DISCIPLINA + " (Para: " + DataEntrega + ")" 
-        Cadastrar_Tarefa(current_timestamp, MAIL, DISCIPLINA, DataEntrega, MSG)
+        Cadastrar_Tarefa(current_timestamp, USER, DISCIPLINA, DataEntrega, MSG)
         exibir_tarefa()
         if MAIL2BOARD =="":
             st.write("Usuário não cadastrado! Não é possível enviar tarefa!")
         else:
             st.write(Send2Mail(FROM, MAIL2BOARD, ASSUNTO, MSG))
             http = urllib3.PoolManager()
-            link = "https://docs.google.com/forms/d/e/1FAIpQLSf8vMlVulpPEPsoZDiXMV35qtiI0mjcxdyRjWQKNipc18F_AA/formResponse?&submit=Submit?usp=pp_url&entry.2053247179=" + DISCIPLINA + "&entry.1049878361=" + MSG + "&entry.1784768064=" + DataEntrega
+            link = "https://docs.google.com/forms/d/e/1FAIpQLSddOy2b78x399_PUikug5L8zGZXVA8_tIPKfcNbFmeHSZtqeQ/formResponse?&submit=Submit?usp=pp_url&entry.2053247179=" + DISCIPLINA + "&entry.1049878361=" + MSG + "&entry.1784768064=" + DataEntrega + "&entry.116700449=" + USER
             r = http.request('GET', link)
             r.status
 
